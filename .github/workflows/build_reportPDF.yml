@@ -28,26 +28,25 @@ jobs:
 
       - name: Switch to deploy branch and update PDF
         run: |
-          # Check if the PDF was generated successfully
           if [ ! -f Report.pdf ]; then
             echo "PDF not found, skipping deployment."
             exit 0
           fi
-          # Copy the PDF to the root directory
-          cp Report.pdf ../
+
+          # Move the PDF to a temporary folder inside the workspace
+          mkdir -p tmp
+          cp Report.pdf tmp/
 
           # Configure Git
           git config --global user.name "GitHub Actions"
           git config --global user.email "actions@github.com"
           git fetch origin deploy:deploy || git checkout --orphan deploy
           git checkout deploy
-          # Remove the existing PDF only if it exists
+
+          # Remove old PDF if exists and copy new one
           [ -f Report.pdf ] && git rm -f Report.pdf || echo "No PDF to remove"
-          
-          # Ensure correct permissions and copy the new PDF
-          chmod +r ../Report.pdf
-          chmod -R 777 ./
-          cp ../Report.pdf ./
+          cp tmp/Report.pdf ./
+
           git add Report.pdf
           git commit -m "Update PDF" || echo "No changes to commit"
           git push origin deploy --force
