@@ -45,7 +45,8 @@ jobs:
 
           # Remove old PDF if exists and copy new one
           [ -f Report.pdf ] && git rm -f Report.pdf || echo "No PDF to remove"
-          cp tmp/Report.pdf ./
+          mkdir -p PDFs
+          cp tmp/Report.pdf PDFs/
 
           git add Report.pdf
           git commit -m "Update PDF" || echo "No changes to commit"
