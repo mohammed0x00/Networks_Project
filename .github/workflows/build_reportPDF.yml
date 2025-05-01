@@ -3,7 +3,7 @@ name: Build and Deploy Report PDF
 on:
   push:
     branches:
-      - master
+      - main
     paths:
       - 'Report.tex'
       - '.github/workflows/build_reportPDF.yml'
