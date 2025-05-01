@@ -47,6 +47,6 @@ jobs:
           mkdir -p PDFs
           cp -f tmp/Report.pdf PDFs/
 
-          git add -f Report.pdf
+          git add -f PDFs/Report.pdf
           git commit -m "Update PDF" || echo "No changes to commit"
           git push origin deploy --force
