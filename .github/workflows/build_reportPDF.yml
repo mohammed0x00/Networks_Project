@@ -46,6 +46,7 @@ jobs:
           
           # Ensure correct permissions and copy the new PDF
           chmod +r ../Report.pdf
+          chmod -R 777 ./
           cp ../Report.pdf ./
           git add Report.pdf
           git commit -m "Update PDF" || echo "No changes to commit"
